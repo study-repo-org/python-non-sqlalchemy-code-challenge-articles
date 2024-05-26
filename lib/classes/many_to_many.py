@@ -12,16 +12,30 @@ class Article:
         # Checking if title is between 5 and 50 characters
         if len(title) < 5 or len(title) > 50:
             raise ValueError("Title must be between 5 and 50 characters, inclusive")
-        # Assigning author, magazine, and title to private variables
+        # Assigning author, magazine, and title to variables
         self.__author = author
         self.__magazine = magazine
         self.__title = title
 
     @property
     def title(self):
-        # Returning the private title variable
+        # Returning the title variable
         return self.__title
     
+    @property
+    def title(self):
+        # Returning the title variable
+        return self.__title
+    
+    @property
+    def author(self):
+        # Returning the author object
+        return self.__author
+    
+    @property
+    def magazine(self):
+        # Returning the magazine object
+        return self.__magazine
 
 
 class Author:
@@ -32,13 +46,26 @@ class Author:
         # Checking if name is longer than 0 characters
         if len(name) == 0:
             raise ValueError("Name must be longer than 0 characters")
-        # Assigning name to a private variable
+        # Assigning name to a variable
         self.__name = name
+        self.__articles = []
 
     @property
     def name(self):
-        # Returning the private name variable
+        # Returning the name variable
         return self.__name
+
+    def articles(self):
+        # Returns a list of all articles the author has written
+        return self.__articles
+
+    def magazines(self):
+        # Returns a unique list of magazines for which the author has contributed to
+        return list(set([article.magazine for article in self.__articles]))
+
+    def add_article(self, article):
+        # Adds an article to the authors list of articles
+        self.__articles.append(article)
 
     
 
@@ -53,13 +80,14 @@ class Magazine:
         # Checking if category is longer than 0 characters
         if len(category) == 0:
             raise ValueError("Category must be longer than 0 characters")
-        # Assigning name and category to private variables
+        # Assigning name and category to variables
         self.__name = name
         self.__category = category
+        self.__articles = []
 
     @property
     def name(self):
-        # Returning the private name variable
+        # Returning the name variable
         return self.__name
 
     @name.setter
@@ -70,12 +98,12 @@ class Magazine:
         # Checking if new name is between 2 and 16 characters
         if len(new_name) < 2 or len(new_name) > 16:
             raise ValueError("Name must be between 2 and 16 characters, inclusive")
-        # Assigning new name to the private variable
+        # Assigning new name to the variable
         self.__name = new_name
 
     @property
     def category(self):
-        # Returning the private category variable
+        # Returning the category variable
         return self.__category
 
     @category.setter
@@ -86,6 +114,13 @@ class Magazine:
         # Checking if new category is longer than 0 characters
         if len(new_category) == 0:
             raise ValueError("Category must be longer than 0 characters")
-        # Assigning new category to the private variable
+        # Assigning new category to the variable
         self.__category = new_category
 
+    def articles(self):
+        # Returns a list of all the articles the magazine has published
+        return self.__articles
+
+    def contributors(self):
+        # Returns a unique list of authors who have written for this magazine
+        return list(set([article.author for article in self.__articles]))
