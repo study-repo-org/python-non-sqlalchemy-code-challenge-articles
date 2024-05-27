@@ -1,4 +1,6 @@
 class Article:
+    all = []
+
     def __init__(self, author, magazine, title):
         # Checking if author is an instance of Author
         if not isinstance(author, Author):
@@ -16,12 +18,11 @@ class Article:
         self.__author = author
         self.__magazine = magazine
         self.__title = title
+        Article.all.append(self)
+        # Adding the article to the author's list of articles
+        author.add_article(self)
 
-    @property
-    def title(self):
-        # Returning the title variable
-        return self.__title
-    
+
     @property
     def title(self):
         # Returning the title variable
@@ -32,10 +33,27 @@ class Article:
         # Returning the author object
         return self.__author
     
+    @author.setter
+    def author(self, new_author):
+        # Checking if new_author is an instance of Author
+        if not isinstance(new_author, Author):
+            raise ValueError("Author must be an instance of Author")
+        # Assigning new_author to the variable
+        self.__author = new_author
+    
     @property
     def magazine(self):
         # Returning the magazine object
         return self.__magazine
+    
+    @magazine.setter
+    def magazine(self, new_magazine):
+        # Checking if new_magazine is an instance of Magazine
+        if not isinstance(new_magazine, Magazine):
+            raise ValueError("Magazine must be an instance of Magazine")
+        # Assigning new_magazine to the variable
+        self.__magazine = new_magazine
+
 
 
 class Author:
