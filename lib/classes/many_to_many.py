@@ -112,6 +112,8 @@ class Author:
 
 
 class Magazine:
+    all = []
+
     def __init__(self, name, category):
         # Checking if the name and category are strings
         if not isinstance(name, str) or not isinstance(category, str):
@@ -126,6 +128,7 @@ class Magazine:
         self.__name = name
         self.__category = category
         self.__articles = []
+        Magazine.all.append(self)
 
     @property
     def name(self):
@@ -197,3 +200,14 @@ class Magazine:
         if not contributing_authors:
             return None
         return contributing_authors
+    
+    @staticmethod
+    # Returning the Magazine with the most articles
+    # Returning None if there are no articles.
+    def top_publisher():
+        if not Magazine.all:
+            return None
+        magazines_with_articles = [mag for mag in Magazine.all if mag.articles()]
+        if not magazines_with_articles:
+            return None
+        return max(magazines_with_articles, key=lambda mag: len(mag.articles()), default=None)
